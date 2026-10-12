@@ -9,7 +9,9 @@ import { Reveal, StaggerGroup, StaggerItem } from "@/lib/reveal";
  * `detail` promotes the heading to an h1 for the standalone /tentang route; on
  * the home page it is a section and the hero owns the h1. The facts are the real
  * ones for Alfachri Gani (NapLive / Bang Al), sourced from the Lucupedia wiki
- * (lucupedia.fandom.com/id/wiki/Alfachri_Gani) — nothing invented.
+ * (lucupedia.fandom.com/id/wiki/Alfachri_Gani) — nothing invented. The music
+ * chips are the original songs listed in content/site.ts, read off the
+ * @naplive7 videos tab; covers are not part of that list.
  */
 export function Profile({ detail = false }: { detail?: boolean } = {}) {
   const Heading = detail ? "h1" : "h2";
@@ -136,10 +138,13 @@ export function Profile({ detail = false }: { detail?: boolean } = {}) {
               <ul className="mt-3 flex flex-wrap gap-2">
                 {music.map((song) => (
                   <li
-                    key={song}
-                    className="inline-flex items-center rounded-pill border border-line-strong px-3 py-1.5 text-sm font-medium text-fg"
+                    key={song.title}
+                    className="inline-flex items-center gap-2 rounded-pill border border-line-strong px-3 py-1.5 text-sm font-medium text-fg"
                   >
-                    {song}
+                    {song.title}
+                    {"note" in song && song.note && (
+                      <span className="text-xs font-normal text-fg-subtle">{song.note}</span>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -41,8 +41,23 @@ export const career = [
   { year: "2022", title: "Nepnep", note: "Channel stream & klip." },
 ] as const;
 
-/** Self-produced music, from the wiki (with Dying Prince). */
-export const music = ["Legenda Birjon", "Sorry", "With U", "Health Potion"] as const;
+/**
+ * Original songs only — covers are deliberately left out (Sam's call).
+ *
+ * Taken from the music videos on the @naplive7 videos tab: Napking-prefixed
+ * releases plus the two that carry a featured vocalist. `note` names the
+ * collaborator where there is one, so a chip never reads as a solo credit.
+ */
+export const music = [
+  { title: "Legenda Birjon" },
+  { title: "Teman" },
+  { title: "Kamu" },
+  { title: "Sorry" },
+  { title: "With U" },
+  { title: "Health Potion", note: "dengan @nubixxv" },
+  { title: "Aku + Kamu", note: "dengan Kaira Shashia" },
+  { title: "Cinderella", note: "ft. Silvia Valleria" },
+] as const;
 
 /**
  * The three YouTube channels, in display order. `key` matches the content API's
