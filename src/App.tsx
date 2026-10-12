@@ -109,7 +109,7 @@ export default function App() {
         {route === "/konten/clips" ? <Konten view="clips" /> : null}
         {route === "/konten/tonton" ? <StreamPage /> : null}
         {route === "/tweets" ? <Tweets /> : null}
-        {route === "/art" ? <Art /> : null}
+        {route === "/media" ? <Art /> : null}
         {route === "/channel" ? <Channels standalone /> : null}
       </main>
 

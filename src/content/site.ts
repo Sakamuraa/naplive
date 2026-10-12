@@ -12,6 +12,13 @@ export const site = {
   channelTitle: "NapLive",
   /** Description as published by the creator (naplive7), trimmed of decoration. */
   bio: "Isinya gw livestream dah pokonya.",
+  /** Real name and aliases, from the Lucupedia wiki (lucupedia.fandom.com). */
+  realName: "Alfachri Gani",
+  aka: "NapKing · Bang Al",
+  born: "15 Oktober 2000",
+  /** One-line about, used on the /tentang route. */
+  about:
+    "Content creator asal Indonesia yang dikenal lewat konten tantangan dari penonton dan gimik saat streaming.",
   /** Own subdomain, so origin and site URL are the same. Keep in sync with index.html. */
   url: "https://naplive.vtube-info.xyz",
   locale: "id_ID",
@@ -22,6 +29,20 @@ export const site = {
   /** Shown under the "Channel" fact in the profile. */
   joined: "NapKing · NapLive · Nepnep",
 } as const;
+
+/**
+ * Career timeline, from the Lucupedia wiki. Years are the channel creation
+ * dates stated there.
+ */
+export const career = [
+  { year: "2015", title: "JustNap", note: "Channel pertama — animasi pixel." },
+  { year: "2018", title: "NapKing", note: "Konten lucu pendek; mulai dikenal." },
+  { year: "2018", title: "NapLive", note: "Channel khusus livestream." },
+  { year: "2022", title: "Nepnep", note: "Channel stream & klip." },
+] as const;
+
+/** Self-produced music, from the wiki (with Dying Prince). */
+export const music = ["Legenda Birjon", "Sorry", "With U", "Health Potion"] as const;
 
 /**
  * The three YouTube channels, in display order. `key` matches the content API's
@@ -93,7 +114,7 @@ export const ROUTES = [
   "/konten/clips",
   "/konten/tonton",
   "/tweets",
-  "/art",
+  "/media",
   "/channel",
 ] as const;
 
@@ -113,6 +134,6 @@ export const navigation = [
   { label: "Tentang", href: "/tentang" },
   { label: "Konten", href: "/konten" },
   { label: "Tweets", href: "/tweets" },
-  { label: "Art", href: "/art" },
+  { label: "Media", href: "/media" },
   { label: "Channel", href: "/channel" },
 ] as const satisfies ReadonlyArray<{ label: string; href: Route }>;

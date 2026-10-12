@@ -25,7 +25,7 @@ export function Art() {
             id="art-heading"
             className="mt-4 text-3xl font-semibold leading-tight tracking-tight md:text-4xl"
           >
-            Art
+            Media
           </h1>
           <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-fg-muted md:text-lg">
             Kumpulan art yang diposting langsung di X. Klik salah satu untuk buka

@@ -75,12 +75,18 @@ const streamsTab = (handle: string) =>
   `https://www.youtube.com/${handle}/streams?view=0&sort=dd&flow=grid&hl=id&gl=ID`;
 const videosTab = (handle: string) =>
   `https://www.youtube.com/${handle}/videos?view=0&sort=dd&flow=grid&hl=id&gl=ID`;
-const SEARCH_PAGE = `https://www.youtube.com/results?search_query=${encodeURIComponent(
-  "naplive",
-)}&hl=id&gl=ID`;
+/**
+ * Clips are searched under several distinctive brand terms and merged. One term
+ * ("naplive") surfaced only a single clip; the names are specific enough that a
+ * search for them is almost entirely about this creator, so more terms widen the
+ * pool without pulling in noise.
+ */
+const SEARCH_TERMS = ["naplive", "nap live vtuber", "bang al"];
+const searchPage = (q: string) =>
+  `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}&hl=id&gl=ID`;
 
 /** A clip must mention the brand in its title or description to qualify. */
-const MENTIONS = /nap\s?live|napking|nepnep/i;
+const MENTIONS = /naplive|nap\s?king|nepnep|bang\s*al/i;
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
@@ -684,10 +690,22 @@ function parseSearchResults(html: string): SearchEntry[] {
  * is the newest clips *among those found* and not an exhaustive archive.
  */
 async function readClips(): Promise<ContentItem[]> {
-  const html = await fetchText(SEARCH_PAGE);
-  if (!html) return [];
+  // Several brand searches, merged. Each term's results are deduped by videoId,
+  // keeping the first (highest-ranked) occurrence across terms.
+  const pages = await Promise.all(SEARCH_TERMS.map((q) => fetchText(searchPage(q))));
 
-  const ranked = parseSearchResults(html).map((entry, position) => ({ entry, position }));
+  const ranked: { entry: SearchEntry; position: number }[] = [];
+  const seen = new Set<string>();
+  let position = 0;
+  for (const html of pages) {
+    if (!html) continue;
+    for (const entry of parseSearchResults(html)) {
+      if (seen.has(entry.videoId)) continue;
+      seen.add(entry.videoId);
+      ranked.push({ entry, position: position++ });
+    }
+  }
+
   const qualifying = ranked.filter(
     ({ entry }) => entry.mentions && !entry.isOwn && !entry.isLive,
   );
