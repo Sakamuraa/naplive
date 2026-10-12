@@ -3,7 +3,7 @@
 import { ActionLink } from "@/components/Action";
 import { XMark, YoutubeMark } from "@/components/ChannelIcons";
 import { channels, site } from "@/content/site";
-import { asset } from "@/lib/paths";
+// import { asset } from "@/lib/paths";
 import { EASE_OUT_EXPO } from "@/lib/reveal-motion";
 
 /**
