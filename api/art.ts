@@ -209,15 +209,6 @@ export default async function handler(req: ArtRequest, res: ArtResponse) {
 
   const art = [...seen.values()].slice(0, ART_LIMIT);
 
-  /*
-   * The portal's pinned card fetches this endpoint from another origin
-   * (vtube-info.xyz -> naplive.vtube-info.xyz), so the browser will drop the
-   * response unless it says who may read it. `*` is right here: the payload is
-   * public, the request is a simple GET with no credentials, and anything
-   * narrower would need a preflight the card does not send.
-   */
-  res.setHeader("Access-Control-Allow-Origin", "*");
-
   res.setHeader(
     "Cache-Control",
     art.length > 0
