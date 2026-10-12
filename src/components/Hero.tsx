@@ -69,7 +69,8 @@ export function Hero() {
             }}
           >
             <img
-              src={asset(site.avatar)}
+              src="/AL.gif"
+			  // {asset(site.avatar)}
               alt={site.avatarAlt}
               width={800}
               height={800}
